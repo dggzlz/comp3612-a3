@@ -24,25 +24,6 @@ router.get('/', (req, res) => {
     res.json(results); // Send all results
 });
 
-/**
- * GET /api/results/:constructorRef/:year
- * Description: Fetch results for a specific constructor in a given year
- */
-router.get('/:constructorRef/:year', (req, res) => {
-    const { constructorRef, year } = req.params; // Extract constructor reference and year from URL
-
-    // Filter results based on constructor reference and year
-    const filteredResults = results.filter(r => 
-        r.constructor.ref.toLocaleLowerCase() === constructorRef.toLocaleLowerCase() && 
-        r.race.year === parseInt(year)
-    );
-    console.log("result", filteredResults);
-    if (filteredResults.length > 0) {
-        res.json(filteredResults); // Return the filtered results
-    } else {
-        res.status(404).json({ error: `Results for constructor '${constructorRef}' in year ${year} not found` }); // Return 404 error if no match
-    }
-});
 
 /**
  * GET /api/results/race/:id
@@ -75,6 +56,26 @@ router.get('/season/:year', (req, res) => {
         res.json(seasonResults); // Return all results for the season
     } else {
         res.status(404).json({ error: `Results for season ${year} not found` }); // Return 404 error if no match
+    }
+});
+
+/**
+ * GET /api/results/:constructorRef/:year
+ * Description: Fetch results for a specific constructor in a given year
+ */
+router.get('/:constructorRef/:year', (req, res) => {
+    const { constructorRef, year } = req.params; // Extract constructor reference and year from URL
+
+    // Filter results based on constructor reference and year
+    const filteredResults = results.filter(r => 
+        r.constructor.ref.toLocaleLowerCase() === constructorRef.toLocaleLowerCase() && 
+        r.race.year === parseInt(year)
+    );
+    console.log("result", filteredResults);
+    if (filteredResults.length > 0) {
+        res.json(filteredResults); // Return the filtered results
+    } else {
+        res.status(404).json({ error: `Results for constructor '${constructorRef}' in year ${year} not found` }); // Return 404 error if no match
     }
 });
 
