@@ -9,7 +9,6 @@
  *
  * Author: Diego Gonzalez Reyes
  */
-
 const express = require('express');
 const router = express.Router();
 const drivers = require('../data/drivers.json'); // Load drivers data from JSON file
